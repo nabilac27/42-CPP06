@@ -6,11 +6,11 @@
 /*   By: nchairun <nchairun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/25 19:02:19 by nchairun          #+#    #+#             */
-/*   Updated: 2026/06/26 13:10:19 by nchairun         ###   ########.fr       */
+/*   Updated: 2026/06/26 23:48:50 by nchairun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCALARCONVERSTER_HPP
+#ifndef SCALARCONVERTER_HPP
 # define SCALARCONVERTER_HPP
 
 # include <iostream>
@@ -18,13 +18,13 @@
 class ScalarConverter
 {
   private:
-	ScalarConverter(void);
-	ScalarConverter(ScalarConverter const &src);
-	~ScalarConverter(void);
-	ScalarConverter &operator=(ScalarConverter const &value);
+	ScalarConverter();
+	ScalarConverter(const ScalarConverter &other);
+	~ScalarConverter();
+	ScalarConverter &operator=(const ScalarConverter &other);
 
   public:
-	static void convert(const std::string &str);
+	static void convert(const std::string &input);
 };
 
 #endif
