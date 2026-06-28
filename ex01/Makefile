@@ -6,7 +6,7 @@
 #    By: nchairun <nchairun@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/25 19:01:18 by nchairun          #+#    #+#              #
-#    Updated: 2026/06/28 13:48:19 by nchairun         ###   ########.fr        #
+#    Updated: 2026/06/28 14:00:15 by nchairun         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ NAME	= serializer
 #                               FILE STRUCTURE                                 #
 # **************************************************************************** #
 OBJ_DIR	= obj/
-SRCS	= main.cpp ScalarConverter.cpp
+SRCS	= main.cpp Serializer.cpp
 OBJS	= $(addprefix $(OBJ_DIR), $(SRCS:.cpp=.o))
 
 
