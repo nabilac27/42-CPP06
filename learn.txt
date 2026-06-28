@@ -15,3 +15,206 @@ char: '*'
 int: 42
 float: 42.0f
 double: 42.0
+
+---
+
+What is serialization?
+
+Don't think about networking or files.
+
+In this exercise:
+
+Serialization
+
+means
+
+Pointer → Integer
+
+and
+
+Deserialization
+
+means
+
+Integer → Pointer
+
+Nothing is copied.
+
+Nothing is written to disk.
+
+You're only converting the address.
+
+Visualize it
+
+Suppose:
+
+Data data;
+
+Memory:
+
+Address          Object
+
+0x12345678 ----> Data
+
+Serialization:
+
+uintptr_t raw = Serializer::serialize(&data);
+
+becomes
+
+0x12345678 ----> 305419896
+
+Same address.
+
+Just represented as an integer.
+
+Deserialization:
+
+Data *ptr = Serializer::deserialize(raw);
+
+becomes
+
+305419896 ----> 0x12345678 ----> Data
+
+Exactly the same object.
+
+Step 1
+
+Create these files.
+
+ex01/
+│
+├── Data.hpp
+├── Serializer.hpp
+├── Serializer.cpp
+├── main.cpp
+└── Makefile
+Step 2
+
+Create Data.
+
+Nothing fancy.
+
+struct Data
+{
+	int value;
+};
+
+That's it.
+
+Step 3
+
+Create Serializer.
+
+class Serializer
+{
+	private:
+		Serializer();
+		Serializer(const Serializer& other);
+		Serializer& operator=(const Serializer& other);
+		~Serializer();
+
+	public:
+		static uintptr_t serialize(Data* ptr);
+
+		static Data* deserialize(uintptr_t raw);
+};
+
+Notice:
+
+Both functions are static.
+
+Exactly like ScalarConverter.
+
+Step 4
+
+Implement them.
+
+Serialization:
+
+uintptr_t Serializer::serialize(Data* ptr)
+{
+	return (reinterpret_cast<uintptr_t>(ptr));
+}
+
+Deserialization:
+
+Data* Serializer::deserialize(uintptr_t raw)
+{
+	return (reinterpret_cast<Data*>(raw));
+}
+
+Done.
+
+Those are literally the two functions.
+
+Step 5
+
+Write main.cpp.
+
+Data data;
+
+data.value = 42;
+
+std::cout << "Original pointer : " << &data << std::endl;
+
+uintptr_t raw = Serializer::serialize(&data);
+
+std::cout << "Serialized value : " << raw << std::endl;
+
+Data* restored = Serializer::deserialize(raw);
+
+std::cout << "Restored pointer : " << restored << std::endl;
+
+std::cout << "Value            : " << restored->value << std::endl;
+Expected output
+
+Something like
+
+Original pointer : 0x7ffc6f5b4c60
+Serialized value : 140722112015456
+Restored pointer : 0x7ffc6f5b4c60
+Value            : 42
+
+Notice:
+
+Original pointer
+
+==
+
+Restored pointer
+
+Same address.
+
+What you learn
+
+One new cast:
+
+reinterpret_cast
+
+Unlike static_cast, it doesn't convert the object. It only changes how the bits are interpreted.
+
+Exercise roadmap
+✅ Data.hpp
+
+↓
+
+✅ Serializer.hpp
+
+↓
+
+✅ Orthodox Canonical Form
+
+↓
+
+✅ serialize()
+
+↓
+
+✅ deserialize()
+
+↓
+
+✅ main.cpp test
+
+↓
