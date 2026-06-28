@@ -6,12 +6,11 @@
 /*   By: nchairun <nchairun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/26 13:10:21 by nchairun          #+#    #+#             */
-/*   Updated: 2026/06/26 23:49:54 by nchairun         ###   ########.fr       */
+/*   Updated: 2026/06/28 13:33:50 by nchairun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ScalarConverter.hpp"
-
 
 int main(int argc, char **argv)
 {
