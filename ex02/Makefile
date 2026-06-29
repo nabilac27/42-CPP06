@@ -6,7 +6,7 @@
 #    By: nchairun <nchairun@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/25 19:01:18 by nchairun          #+#    #+#              #
-#    Updated: 2026/06/29 12:34:40 by nchairun         ###   ########.fr        #
+#    Updated: 2026/06/29 12:45:09 by nchairun         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,12 +27,11 @@ SRC_DIR = src/
 INC_DIR = include/
 OBJ_DIR = obj/
 
-SRCS = \
-	main.cpp \
-	$(SRC_DIR)Base.cpp \
-	$(SRC_DIR)A.cpp \
-	$(SRC_DIR)B.cpp \
-	$(SRC_DIR)C.cpp
+SRCS 	= 	main.cpp \
+			$(SRC_DIR)Base.cpp \
+			$(SRC_DIR)A.cpp \
+			$(SRC_DIR)B.cpp \
+			$(SRC_DIR)C.cpp
 
 OBJS = $(addprefix $(OBJ_DIR)/,$(SRCS:.cpp=.o))
 

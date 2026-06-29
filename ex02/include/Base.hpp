@@ -6,7 +6,7 @@
 /*   By: nchairun <nchairun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 14:07:46 by nchairun          #+#    #+#             */
-/*   Updated: 2026/06/28 14:10:00 by nchairun         ###   ########.fr       */
+/*   Updated: 2026/06/29 13:23:24 by nchairun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@
 #ifndef BASE_HPP
 # define BASE_HPP
 
+# include <iostream> 
+# include <exception>
 class Base
 {
 	public:
@@ -43,7 +45,7 @@ class Base
 };
 
 Base*	generate(void);
-void	identify(Base* p);
-void	identify(Base& p);
+void    identify(Base* p); // passed by pointer
+void    identify(Base& p); // passed by reference
 
 #endif

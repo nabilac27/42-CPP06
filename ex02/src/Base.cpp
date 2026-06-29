@@ -6,7 +6,7 @@
 /*   By: nchairun <nchairun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/29 12:29:26 by nchairun          #+#    #+#             */
-/*   Updated: 2026/06/29 12:32:15 by nchairun         ###   ########.fr       */
+/*   Updated: 2026/06/29 13:22:53 by nchairun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,84 @@
 */
 
 #include "../include/Base.hpp"
+#include "../include/A.hpp"
+#include "../include/B.hpp"
+#include "../include/C.hpp"
 
-Base::~Base() 
-{    
+/* ************************************************************************** */
+/*  VIRTUAL DESTRUCTOR                                                        */
+/* ************************************************************************** */
+
+Base::~Base()
+{
+}
+
+/* ************************************************************************** */
+/*  GENERATE                                                                  */
+/* ************************************************************************** */
+
+Base* generate(void)
+{
+	int	type;
+
+	type = rand() % 3;
+	if (type == 0)
+		return (new A);
+	if (type == 1)
+		return (new B);
+	return (new C);
+}
+
+/* ************************************************************************** */
+/*  IDENTIFY                                                                  */
+/* ************************************************************************** */
+
+void identify(Base* p)
+{
+	if (dynamic_cast<A*>(p))
+		std::cout << "A" << std::endl;
+	else if (dynamic_cast<B*>(p))
+		std::cout << "B" << std::endl;
+	else if (dynamic_cast<C*>(p))
+		std::cout << "C" << std::endl;
+	else
+		std::cout << "Unknown" << std::endl;
+}
+
+void identify(Base& p)
+{
+	try
+	{
+		(void)dynamic_cast<A&>(p);
+		std::cout << "A" << std::endl;
+		return;
+	}
+	catch (std::exception& e)
+	{
+		(void)e;
+	}
+
+	try
+	{
+		(void)dynamic_cast<B&>(p);
+		std::cout << "B" << std::endl;
+		return;
+	}
+	catch (std::exception& e)
+	{
+		(void)e;
+	}
+
+	try
+	{
+		(void)dynamic_cast<C&>(p);
+		std::cout << "C" << std::endl;
+		return;
+	}
+	catch (std::exception& e)
+	{
+		(void)e;
+	}
+
+	std::cout << "Unknown" << std::endl;
 }
