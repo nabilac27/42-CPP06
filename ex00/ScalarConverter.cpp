@@ -6,7 +6,7 @@
 /*   By: nchairun <nchairun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/26 13:09:27 by nchairun          #+#    #+#             */
-/*   Updated: 2026/06/28 13:44:18 by nchairun         ###   ########.fr       */
+/*   Updated: 2026/07/02 23:14:36 by nchairun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,15 @@ bool ScalarConverter::isInt(const std::string& input)
 	size_t	i;
 
 	i = 0;
+	if (input.empty())
+        return (false);
 	if (input[i] == '+' || input[i] == '-')
 		i++;
 	if (i == input.length())
 		return (false);
 	while (i < input.length())
 	{
-		if (!std::isdigit(input[i]))
+		if (!(std::isdigit(input[i])))
 			return (false);
 		i++;
 	}
@@ -196,7 +198,7 @@ void ScalarConverter::printNumber(double value)
 }
 
 /* ************************************************************************** */
-/*  CONVERT							                                             */
+/*  CONVERT							                                          */
 /* ************************************************************************** */
 
 void ScalarConverter::convert(const std::string& input)
@@ -218,7 +220,7 @@ void ScalarConverter::convert(const std::string& input)
 		case FLOAT:
 		case DOUBLE:
 			errno = 0;
-			value = std::strtod(input.c_str(), NULL);
+			value = std::strtod(input.c_str(), NULL); // converts  string into a double
 			if (errno == ERANGE)
 			{
 				std::cout << "char	: impossible" 	<< std::endl;
@@ -238,3 +240,9 @@ void ScalarConverter::convert(const std::string& input)
 		break ;
 	}
 }
+
+/*
+	errno is a global error flag used by old C functions.
+
+	
+*/
