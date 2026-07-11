@@ -1,3 +1,126 @@
+scalar
+
+| Type     | Stores                | Example         | Format Specifier (`printf`) | Range                                                     | Size    |
+| -------- | --------------------- | --------------- | --------------------------- | --------------------------------------------------------- | ------- |
+| `char`   | One character (ASCII) | `'A'`           | `%c`                        | -128 to 127 *(signed char)* or 0 to 255 *(unsigned char)* | 1 byte  |
+| `int`    | Whole numbers         | `42`            | `%d` or `%i`                | -2,147,483,648 to 2,147,483,647                           | 4 bytes |
+| `float`  | Decimal numbers       | `3.14f`         | `%f`                        | ±3.4 × 10³⁸ (~7 digits precision)                         | 4 bytes |
+| `double` | More precise decimals | `3.141592`      | `%lf`                       | ±1.7 × 10³⁰⁸ (~15–16 digits precision)                    | 8 bytes |
+| `bool`   | Boolean value         | `true`, `false` | `%d` *(prints 0 or 1)*      | `false` or `true`                                         | 1 byte  |
+
+non scalar
+| Type               | Stores                              | Example          | Why it's **not** scalar       |
+| ------------------ | ----------------------------------- | ---------------- | ----------------------------- |
+| `std::string`      | A sequence of characters            | `"Hello"`        | Stores multiple `char` values |
+| `std::vector<int>` | A dynamic collection of integers    | `{10, 20, 30}`   | Stores multiple `int` values  |
+| `int array[10]`    | A fixed-size collection of integers | `{1, 2, 3, ...}` | Stores 10 `int` values        |
+
+----
+
+common literals in ex00
+| Input     | Literal Type             |
+| --------- | ------------------------ |
+| `"a"`     | `char` literal           |
+| `"42"`    | `int` literal            |
+| `"42.0f"` | `float` literal          |
+| `"42.0"`  | `double` literal         |
+| `"nan"`   | special `double` literal |
+| `"nanf"`  | special `float` literal  |
+| `"+inf"`  | special `double` literal |
+| `"-inff"` | special `float` literal  |
+
+---
+
+"Pseudo-literals are special floating-point values that don't represent normal numbers. 
+nan means 'Not A Number', while +inf and -inf represent positive and negative infinity. 
+The versions ending in f are float literals, and the ones without f are double literals."
+
+| Literal | Meaning           | Type     |
+| ------- | ----------------- | -------- |
+| `nan`   | Not A Number      | `double` |
+| `nanf`  | Not A Number      | `float`  |
+| `+inf`  | Positive Infinity | `double` |
+| `+inff` | Positive Infinity | `float`  |
+| `-inf`  | Negative Infinity | `double` |
+| `-inff` | Negative Infinity | `float`  |
+
+---
+
+Casting Operators in C++
+    A cast is a special operator that forces one data type to be converted into another.
+    
+     C++ Type Casting Operators
+     
+	 1. static_cast<type> (expr) 
+        - The static_cast operator performs a nonpolymorphic cast. 
+        - For example, it can be used to cast a base class pointer into a derived class pointer.
+
+	---
+
+		scalar = one single value
+
+		scalar example 
+			char
+			int
+			float
+			double
+			bool
+
+		not scalar
+			std::string
+			std::vector
+			int array[10]
+		-> because they contain multiple values.
+
+
+
+
+
+What static_cast cannot do
+
+It only works between compatible types.
+
+Good:
+
+int → float
+float → double
+char → int
+double → int
+
+Bad:
+
+std::string → int
+std::vector → float
+
+Those require other techniques.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+
 converting one input string into:
 
 char

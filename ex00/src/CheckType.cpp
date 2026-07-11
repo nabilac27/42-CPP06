@@ -6,7 +6,7 @@
 /*   By: nchairun <nchairun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/11 22:44:13 by nchairun          #+#    #+#             */
-/*   Updated: 2026/07/11 23:19:08 by nchairun         ###   ########.fr       */
+/*   Updated: 2026/07/11 23:36:00 by nchairun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,19 @@ void ScalarConverter::printPseudoLiteral(const std::string &input)
 {
 	std::cout << "char	: impossible" << std::endl;
 	std::cout << "int	: impossible" << std::endl;
+	
 	if (input == "nan" || input == "nanf")
 	{
 		std::cout << "float	: nanf" 	<< std::endl;
 		std::cout << "double	: nan" 	<< std::endl;
 	}
+	
 	else if (input[0] == '+')
 	{
 		std::cout << "float	: +inff" 	<< std::endl;
 		std::cout << "double	: +inf" << std::endl;
 	}
+	
 	else
 	{
 		std::cout << "float	: -inff" 	<< std::endl;
@@ -67,7 +70,12 @@ void ScalarConverter::printPseudoLiteral(const std::string &input)
 /* ************************************************************************** */
 bool ScalarConverter::isChar(const std::string &input)
 {
-	return (input.length() == 1 && !(std::isdigit(input[0])));
+    if (input.length() != 1)
+        return (false);
+    if (std::isdigit(static_cast<unsigned char>(input[0])))
+        return (false);
+
+    return (true);
 }
 
 void ScalarConverter::printChar(char c)
@@ -139,18 +147,20 @@ bool ScalarConverter::isDouble(const std::string& input)
 
 bool ScalarConverter::isFloat(const std::string& input)
 {
-	std::string withoutF;
+	std::string valueWithoutF;
 	
 	if (input.length() < 2)
 		return (false);
 	if (input[input.length() - 1] != 'f')
 		return (false);
-	withoutF = input.substr(0, input.length() - 1);
-	return (isDouble(withoutF));
+	valueWithoutF = input.substr(0, input.length() - 1); // input string after removing the final f."
+	return (isDouble(valueWithoutF));
 }
+
 
 void ScalarConverter::printNumber(double value)
 {
+	/****** CHAR ******/
 	if (value < 0 || value > 127)
 		std::cout	 << "char	: impossible"
 					 << std::endl;
@@ -162,6 +172,8 @@ void ScalarConverter::printNumber(double value)
 				 	<< static_cast<char>(value) 
 				 	<< "'" 
 				 	<< std::endl;
+	
+	/****** INT ******/
 	if (value < INT_MIN || value > INT_MAX)
 		std::cout 	<< "int	: impossible" 
 				  	<< std::endl;
@@ -170,6 +182,7 @@ void ScalarConverter::printNumber(double value)
 					<< static_cast<int>(value) 
 					<< std::endl;
 					
+	/****** FLOAT ******/
 	std::cout << std::fixed << std::setprecision(1);
 	if (value > FLT_MAX || value < -FLT_MAX)
 		std::cout	<< "float	: impossible" 
@@ -177,7 +190,8 @@ void ScalarConverter::printNumber(double value)
 	else
 		std::cout 	<< "float	: " << static_cast<float>(value) 
 					<< "f" << std::endl;
-					
+	
+	/****** DOUBLE ******/
 	std::cout 		<< "double	: " 
 					<< value 
 					<< std::endl;

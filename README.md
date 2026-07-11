@@ -2,20 +2,23 @@
 
 ## Overview
 
-CPP Module 06 introduces the four **C++ casts** and **Runtime Type Information (RTTI)**.
+CPP Module 06 introduces the **C++ casts** and **Runtime Type Information (RTTI)**.
 
-The focus is  more on understanding how C++ treats object types at runtime.
 
 Each exercise demonstrates a different casting mechanism:
 
-- 🔢 **ex00**: Convert between scalar types (`char`, `int`, `float`, `double`).
-- 💾 **ex01**: Convert pointers into integers and back using serialization.
-- 🔍 **ex02**: Identify the real object type at runtime using `dynamic_cast`.
+<!---
+    --------- EX00 ---------
+-->
+
+<details>
+    <summary>
+        <b>
+            ex00: Convert between scalar types (`char`, `int`, `float`, `double`).
+        </b>
+    </summary>
 
 ---
-
-# Exercise 00
-
 ## Class Structure
 
 ```bash
@@ -31,10 +34,10 @@ Each exercise demonstrates a different casting mechanism:
               Detect literal type
                         |
                         ▼
-          Convert to original scalar type
+          Convert it to the real value
                         |
                         ▼
-      Explicitly cast to remaining types
+        Cast value into char/int/float/double
                         |
                         ▼
           Print conversion results
@@ -42,23 +45,32 @@ Each exercise demonstrates a different casting mechanism:
 
 ## Conversion Flow
 
-```bash
-                Input
-                  │
-                  ▼
-           checkType(input)
-                  │
-      ┌───────────┼───────────┐
-      │           │           │
-      ▼           ▼           ▼
-  Special       Char      Number
-      │           │           │
-      └───────────┼───────────┘
-                  ▼
-         Convert and Print
-                  │
-                  ▼
-     char / int / float / double
+```c++
+
+                        Input string
+                            │
+                            ▼
+                    checkType(input)
+                            │
+        ┌──────────────────┼────────────────────┐
+        │                  │                    │
+        ▼                  ▼                    ▼
+    PSEUDO_LITERAL          CHAR        INT / FLOAT / DOUBLE
+        │                  │                    │
+        ▼                  ▼                    ▼
+    printPseudoLiteral()  printChar()        strtod(input)
+                                                │
+                                                ▼
+                                        Check errno == ERANGE
+                                            │           │
+                                        Yes ▼           ▼ No
+                                print all impossible  printNumber(value)
+                                                            │
+                                                            ▼
+                                            static_cast to char / int / float
+                                                            │
+                                                            ▼
+                                        print char / int / float / double
 ```
 
 Example:
@@ -89,10 +101,20 @@ It also handles:
 
 Since the class stores no state, every function is static and objects of the class should never be created.
 
+</details>
+
+<!---
+    --------- EX01 --------- 
+-->
+
+<details>
+    <summary>
+        <b>
+            ex01: Convert pointers into integers and back using serialization.
+        </b>
+    </summary>
+
 ---
-
-# Exercise 01
-
 ## Serialization Diagram
 
 ```bash
@@ -159,10 +181,20 @@ The goal is to prove that:
     deserialize(serialize(ptr)) == ptr
 ```
 
+</details>
+
+<!---
+    --------- EX02 ---------
+-->
+
+<details>
+    <summary>
+        <b>
+        ex02: Identify the real object type at runtime using `dynamic_cast`.
+        </b>
+    </summary>
+
 ---
-
-# Exercise 02
-
 ## RTTI / Class Hierarchy
 
 ```bash
@@ -275,12 +307,18 @@ This is only possible because `Base` is polymorphic,
 
 meaning it contains at least one virtual function (its virtual destructor).
 
+</details>
+
 ---
 
-# OOP Concepts by Exercise
+<!---
+    --------- OOP Concepts ---------
+-->
 
-| Exercise | Concepts Introduced                                                                                     |
-|----------|---------------------------------------------------------------------------------------------------------|
-| **ex00** | Static Utility Class, Scalar Types, Literal Detection, Explicit Casting (`static_cast`), Numeric Limits |
-| **ex01** | `reinterpret_cast`, Pointer Serialization, `uintptr_t`, Memory Addresses                                |
-| **ex02** | Runtime Type Information (RTTI), `dynamic_cast`, Upcasting, Downcasting                                 |
+## OOP Concepts by Exercise
+
+| Exercise | Concepts Introduced                                                        |
+|----------|----------------------------------------------------------------------------|
+| **ex00** | Static Utility Class, Scalar Types, Explicit Casting (`static_cast`)       |
+| **ex01** | `reinterpret_cast`, Pointer Serialization, `uintptr_t`, Memory Addresses   |
+| **ex02** | Runtime Type Information (RTTI), `dynamic_cast`, Upcasting, Downcasting    |
