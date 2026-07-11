@@ -6,25 +6,32 @@
 #    By: nchairun <nchairun@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/25 19:01:18 by nchairun          #+#    #+#              #
-#    Updated: 2026/06/27 00:00:45 by nchairun         ###   ########.fr        #
+#    Updated: 2026/07/11 23:17:19 by nchairun         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # **************************************************************************** #
 #                                 COMPILER                                     #
 # **************************************************************************** #
-CC		= c++
-CFLAGS	= -Wall -Wextra -Werror -std=c++98
-NAME	= converter
+NAME		= converter
+
+CC			= c++
+CFLAGS		= -Wall -Wextra -Werror -std=c++98
 
 
 # **************************************************************************** #
 #                               FILE STRUCTURE                                 #
 # **************************************************************************** #
-OBJ_DIR	= obj/
-SRCS	= main.cpp ScalarConverter.cpp
-OBJS	= $(addprefix $(OBJ_DIR), $(SRCS:.cpp=.o))
+SRC_DIR		= src/
+OBJ_DIR		= obj/
+INC_DIR		= include/
 
+SRCS		= main.cpp \
+			  $(SRC_DIR)/ScalarConverter.cpp \
+			  $(SRC_DIR)/CheckType.cpp \
+
+OBJS		= $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
+			
 
 # **************************************************************************** #
 #                                   RULES                                      #
@@ -35,13 +42,14 @@ all: $(NAME)
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
+	mkdir -p $(OBJ_DIR)/$(SRC_DIR)
 
-$(OBJ_DIR)%.o: %.cpp | $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+$(OBJ_DIR)/%.o: %.cpp | $(OBJ_DIR)
+	$(CC) $(CFLAGS) -I$(INC_DIR) -c $< -o $@
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
-
+	
 
 # **************************************************************************** #
 #                                 CLEANING                                     #

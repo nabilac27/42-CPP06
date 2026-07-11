@@ -6,7 +6,7 @@
 /*   By: nchairun <nchairun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/25 19:02:19 by nchairun          #+#    #+#             */
-/*   Updated: 2026/06/28 13:33:43 by nchairun         ###   ########.fr       */
+/*   Updated: 2026/07/11 23:08:55 by nchairun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ enum e_type
 	INT,
 	FLOAT,
 	DOUBLE,
-	SPECIAL,
+	PSEUDO,
 	INVALID
 };
 
@@ -39,19 +39,19 @@ class ScalarConverter
 	~ScalarConverter();
 	ScalarConverter& operator=(const ScalarConverter& other);
 	
-	static bool		isSpecial(const std::string& input);
+	static bool		isPseudoLiteral(const std::string& input);
 	static bool		isChar(const std::string& input);
 	static bool		isInt(const std::string& input);
 	static bool		isFloat(const std::string& input);
 	static bool		isDouble(const std::string& input);
 	static e_type	checkType(const std::string& input);
 	
-	static void	printSpecial(const std::string& input);
-	static void	printChar(char c);
-	static void	printNumber(double value);
+	static void		printPseudoLiteral(const std::string& input);
+	static void		printChar(char c);
+	static void		printNumber(double value);
 		
   public:
-	static void	convert(const std::string &input);
+	static void		convert(const std::string &input);
 };
 
 #endif
