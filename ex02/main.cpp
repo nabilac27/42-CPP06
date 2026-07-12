@@ -6,37 +6,99 @@
 /*   By: nchairun <nchairun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/29 12:26:56 by nchairun          #+#    #+#             */
-/*   Updated: 2026/07/12 02:51:49 by nchairun         ###   ########.fr       */
+/*   Updated: 2026/07/12 19:23:49 by nchairun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/Base.hpp"
-#include "include/A.hpp"
-#include "include/B.hpp"
-#include "include/C.hpp"
+#include "Base.hpp"
+#include "A.hpp"
+#include "B.hpp"
+#include "C.hpp"
 
-int main ()
+#include <cstdlib>
+#include <ctime>
+#include <iostream>
+
+int main(void)
 {
-	Base* obj = generate(); // generate random class between A, B, C
+	std::srand(static_cast<unsigned int>(std::time(NULL)));
 
-	std::cout << "Identifying using pointer: ";
-	identify(obj); // identify using pointer
+	/* ************************************************************************** */
+	/*  SIMPLE RANDOM TEST                                                        */
+	/* ************************************************************************** */
 
-	std::cout << "Identifying using reference: ";
-	identify(*obj); // identify using reference
+	std::cout << "======================================" << std::endl;
+	std::cout << "        Single Random Object" << std::endl;
+	std::cout << "======================================" << std::endl;
 
-	// std::cout << "Testing nullptr:" << std::endl;
-    // identify(nullptr); // check nullptr
+	Base* randomObject = generate();
 
-	delete obj; // delete dynamically allocated object
+	std::cout << "Pointer   : ";
+	identify(randomObject);
+
+	std::cout << "Reference : ";
+	identify(*randomObject);
+
+	delete randomObject;
+
+	/* ************************************************************************** */
+	/*  A - UPCASTING AND DOWNCASTING                                             */
+	/* ************************************************************************** */
+
+	std::cout << std::endl;
+	std::cout << "======================================" << std::endl;
+	std::cout << "              A Test" << std::endl;
+	std::cout << "======================================" << std::endl;
+
+	A* aObject 	= new A;
+	Base* aBase = aObject; 					// Upcasting: A* -> Base*
+
+	// std::cout << "Upcast    : A* -> Base*" << std::endl;
+	std::cout << "Identify  : ";
+	identify(aBase);
+
+	A* aRestored = dynamic_cast<A*>(aBase); // Downcasting: Base* -> A*
+
+	if (aRestored)
+		std::cout << "Downcast  : Base* -> A* successful" << std::endl;
+	else
+		std::cout << "Downcast  : Base* -> A* failed" << std::endl;
+
+	delete aBase;
+
+	/* ************************************************************************** */
+	/*  B - UPCASTING AND DOWNCASTING                                             */
+	/* ************************************************************************** */
+
+	std::cout << std::endl;
+	std::cout << "======================================" << std::endl;
+	std::cout << "              B Test" << std::endl;
+	std::cout << "======================================" << std::endl;
+
+	B* bObject = new B;
+	Base* bBase = bObject; // Upcasting: B* -> Base*
+
+	// std::cout << "Upcast    : B* -> Base*" << std::endl;
+	std::cout << "Identify  : ";
+	identify(bBase);
+
+	B* bRestored = dynamic_cast<B*>(bBase); // Downcasting: Base* -> B*
+
+	if (bRestored)
+		std::cout << "Downcast  : Base* -> B* successful" << std::endl;
+	else
+		std::cout << "Downcast  : Base* -> B* failed" << std::endl;
+
+	delete bBase;
+
 	return (0);
 }
 
-// int main(void)
-// {
-//     Base* obj = new A;
+/*
+	The destructor is virtual for two reasons:
 
-//     delete obj;
-
-//     return (0);
-// }
+	It makes Base polymorphic, which allows dynamic_cast to work.
+	It allows correct deletion through a Base*.
+	Base* object = new A;
+	delete object;
+*/

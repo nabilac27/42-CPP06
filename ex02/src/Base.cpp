@@ -6,24 +6,9 @@
 /*   By: nchairun <nchairun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/29 12:29:26 by nchairun          #+#    #+#             */
-/*   Updated: 2026/07/12 02:57:28 by nchairun         ###   ########.fr       */
+/*   Updated: 2026/07/12 19:04:05 by nchairun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/*
-    Implement the following functions:
-        Base * generate(void);
-            It randomly instantiates A, B, or C and returns the instance as a Base pointer. 
-            Feel free to use anything you like for the random choice implementation.
-    
-    void identify(Base* p);
-            It prints the actual type of the object pointed to by p: "A", "B", or "C".
-    
-    void identify(Base& p);
-            It prints the actual type of the object referenced by p: "A", "B", or "C". 
-            Using a pointer inside this function is forbidden.
-            Including the typeinfo header is forbidden.
-*/
 
 #include "../include/Base.hpp"
 #include "../include/A.hpp"
@@ -62,16 +47,15 @@ Base::~Base()
 
 Base* generate(void)
 {
-	int	type;
+	int	randNumber;
 
-	type = rand() % 3;
-	type = 0;
+	randNumber = rand() % 3;
 
-	std::cout << " [Debug] Random value: " << type << std::endl;
+	// std::cout << " [Debug] Random value: " << randNumber << std::endl;
 	
-	if (type == 0)
+	if (randNumber == 0)
 		return (new A);
-	if (type == 1)
+	if (randNumber == 1)
 		return (new B);
 	return (new C);
 }

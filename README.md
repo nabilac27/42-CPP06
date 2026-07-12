@@ -242,24 +242,9 @@ between unrelated pointer and integer types.
       +-------+          +-------+          +-------+
 ```
 
-```cpp
-             generate()
-                 │
-                 ▼
-            returns Base*
-```
+## Member Functions
 
-```cpp
-            identify()
-                │
-                ▼
-            Uses dynamic_cast
-                │
-                ▼
-            Prints A, B, or C
-```
-
-## generate()
+### Base*   generate(void)
 
 ```cpp
     Random choice
@@ -274,7 +259,7 @@ between unrelated pointer and integer types.
 
 `generate()` randomly creates an object of type `A`, `B`, or `C`, but returns it as a `Base*`.
 
-This demonstrates **upcasting**, where a derived object is viewed through a base class pointer.
+This demonstrates **`upcasting`**, where a derived object is viewed through a base class pointer.
 
 
 ```cpp
@@ -293,7 +278,7 @@ Downcasting:
 
 ---
 
-## identify(Base*)
+### void    identify(Base* p)
 
 ```bash
         Base*
@@ -313,14 +298,14 @@ Downcasting:
             │
             └── success → print "C"
 ```
-
+- It prints the actual type of the object pointed to by p: "A", "B", or "C"
 - `dynamic_cast` returns `nullptr` when the pointer is not actually pointing to the requested derived type.
 
 - The first successful cast reveals the object's real type.
 
 ---
 
-## identify(Base&)
+### void identify(Base& p)
 
 ```bash
         Base&
@@ -337,7 +322,7 @@ Downcasting:
             ▼
     Try next type
 ```
-
+- It prints the actual type of the object referenced by p: "A", "B", or "C". 
 - Unlike pointer casting, reference casting cannot return `nullptr`.
 
 - Instead, a failed `dynamic_cast` throws a `std::bad_cast` exception, so each attempt is wrapped inside a `try/catch` block until the correct type is found.
@@ -346,11 +331,7 @@ Downcasting:
 
 ## Responsibility
 
-- This exercise demonstrates **Runtime Type Information (RTTI)**.
-
-- Although every object is accessed through a `Base` pointer or reference, 
-
-- `dynamic_cast` allows the program to discover the object's real derived type during runtime.
+- Although every object is accessed through a `Base` pointer or reference,  `dynamic_cast` allows the program to discover the object's real derived type during runtime.
 
 - This is only possible because `Base` is polymorphic, 
 
@@ -391,9 +372,102 @@ Downcasting:
 ---
 
 <details>
-<summary><b>Runtime Type Information (RTTI)</b></summary>
+<summary><b>Scalar Types</b></summary>
 
-Runtime Type Information (**RTTI**) allows C++ to determine an object's **actual type** during program execution. It is mainly used with **`dynamic_cast`** in polymorphic class hierarchies.
+---
+
+Scalar types store **a single value**. They are the basic built-in data types in C++.
+
+| Type | Stores | Example | `printf` | Range | Size |
+|------|--------|---------|----------|-------|------|
+| `char` | One character (ASCII) | `'A'` | `%c` | -128 to 127 *(signed)* / 0 to 255 *(unsigned)* | 1 byte |
+| `int` | Whole numbers | `42` | `%d` / `%i` | -2,147,483,648 to 2,147,483,647 | 4 bytes |
+| `float` | Decimal numbers | `3.14f` | `%f` | ±3.4 × 10³⁸ (~7 digits) | 4 bytes |
+| `double` | More precise decimals | `3.141592` | `%lf` | ±1.7 × 10³⁰⁸ (~15–16 digits) | 8 bytes |
+| `bool` | Boolean value | `true`, `false` | `%d` *(0 or 1)* | `false` / `true` | 1 byte |
+
+</details>
+
+---
+
+<details>
+<summary><b>Non-Scalar Types</b></summary>
+
+---
+
+Unlike scalar types, non-scalar types can store **multiple values**.
+
+| Type | Stores | Example | Why it's **not** scalar |
+|------|--------|---------|-------------------------|
+| `std::string` | Sequence of characters | `"Hello"` | Stores multiple `char` values |
+| `std::vector<int>` | Dynamic collection of integers | `{10, 20, 30}` | Stores multiple `int` values |
+| `int array[10]` | Fixed-size collection | `{1, 2, 3, ...}` | Stores several `int` values |
+
+</details>
+
+---
+
+<details>
+<summary><b>Common Literals (Exercise 00)</b></summary>
+
+---
+
+A **literal** is a fixed value written directly in the source code.
+
+| Input | Literal Type |
+|-------|--------------|
+| `"a"` | `char` |
+| `"42"` | `int` |
+| `"42.0f"` | `float` |
+| `"42.0"` | `double` |
+| `"nan"` | Special `double` |
+| `"nanf"` | Special `float` |
+| `"+inf"` | Special `double` |
+| `"-inff"` | Special `float` |
+
+</details>
+
+---
+
+<details>
+<summary><b>Pseudo-Literals</b></summary>
+
+---
+
+Pseudo-literals are **special floating-point values** that do not represent ordinary numbers.
+
+- `nan` means **Not A Number**
+- `+inf` means **Positive Infinity**
+- `-inf` means **Negative Infinity**
+- Literals ending with `f` are `float`
+- Literals without `f` are `double`
+
+| Literal | Meaning | Type |
+|---------|---------|------|
+| `nan` | Not A Number | `double` |
+| `nanf` | Not A Number | `float` |
+| `+inf` | Positive Infinity | `double` |
+| `+inff` | Positive Infinity | `float` |
+| `-inf` | Negative Infinity | `double` |
+| `-inff` | Negative Infinity | `float` |
+
+</details>
+
+---
+
+<details>
+<summary><b>Static vs Non-Static Members</b></summary>
+
+---
+
+| Non-static | Static |
+|------------|--------|
+| Belongs to an object | Belongs to the class |
+| Requires an object | No object required |
+| Called with `object.function()` | Called with `Class::function()` |
+| Has access to `this` | No `this` pointer |
+| Can access non-static members | Cannot access non-static members directly |
+| Example: `dog.bark()` | Example: `Serializer::serialize(ptr)` |
 
 </details>
 
@@ -407,6 +481,12 @@ Safely converts pointers or references within an inheritance hierarchy by checki
 - Pointer cast → returns **`nullptr`** if the cast fails.
 - Reference cast → throws **`std::bad_cast`** if the cast fails.
 - Requires a **polymorphic base class** (at least one virtual function).
+
+**Pointer vs reference**
+| Cast                  | Failure result         |
+| --------------------- | ---------------------- |
+| `dynamic_cast<A*>(p)` | Returns `NULL`         |
+| `dynamic_cast<A&>(p)` | Throws `std::bad_cast` |
 
 </details>
 
@@ -445,3 +525,7 @@ A* derived = dynamic_cast<A*>(base);
 
 </details>
 
+---
+
+## Resources
+- RTTI | https://www.geeksforgeeks.org/cpp/rtti-run-time-type-information-in-cpp/

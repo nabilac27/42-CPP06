@@ -6,7 +6,7 @@
 /*   By: nchairun <nchairun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/29 12:27:02 by nchairun          #+#    #+#             */
-/*   Updated: 2026/06/29 12:29:00 by nchairun         ###   ########.fr       */
+/*   Updated: 2026/07/12 15:48:51 by nchairun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@
 
 class B : public Base
 {
+    // public:
+	// 	B();
+	// 	B(const B& other);
+	// 	B& operator=(const B& other);
+	// 	~B();
 };
 
 #endif
