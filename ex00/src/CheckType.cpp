@@ -6,7 +6,7 @@
 /*   By: nchairun <nchairun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/11 22:44:13 by nchairun          #+#    #+#             */
-/*   Updated: 2026/07/11 23:36:00 by nchairun         ###   ########.fr       */
+/*   Updated: 2026/07/12 15:24:28 by nchairun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ bool ScalarConverter::isFloat(const std::string& input)
 		return (false);
 	if (input[input.length() - 1] != 'f')
 		return (false);
-	valueWithoutF = input.substr(0, input.length() - 1); // input string after removing the final f."
+	valueWithoutF = input.substr(0, input.length() - 1);
 	return (isDouble(valueWithoutF));
 }
 

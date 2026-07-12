@@ -44,6 +44,15 @@ The versions ending in f are float literals, and the ones without f are double l
 | `-inf`  | Negative Infinity | `double` |
 | `-inff` | Negative Infinity | `float`  |
 
+| Non-static                      | Static                                    |
+| ------------------------------- | ----------------------------------------- |
+| Belongs to an object            | Belongs to the class                      |
+| Requires an object              | No object needed                          |
+| Called with `object.function()` | Called with `Class::function()`           |
+| Has access to `this`            | No `this` pointer                         |
+| Can access non-static members   | Cannot access non-static members directly |
+| Example: `dog.bark()`           | Example: `Serializer::serialize(ptr)`     |
+
 ---
 
 Casting Operators in C++

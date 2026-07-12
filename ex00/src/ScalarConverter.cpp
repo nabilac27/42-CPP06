@@ -6,7 +6,7 @@
 /*   By: nchairun <nchairun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/26 13:09:27 by nchairun          #+#    #+#             */
-/*   Updated: 2026/07/11 23:15:43 by nchairun         ###   ########.fr       */
+/*   Updated: 2026/07/12 15:24:56 by nchairun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void ScalarConverter::convert(const std::string& input)
 		case (FLOAT):
 		case (DOUBLE):
 			errno = 0;
-			value = std::strtod(input.c_str(), NULL); // converts  string into a double
+			value = std::strtod(input.c_str(), NULL);
 			
 			if (errno == ERANGE)
 			{
