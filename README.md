@@ -352,3 +352,36 @@ meaning it contains at least one virtual function (its virtual destructor).
 | **ex00** | Static Utility Class, Scalar Types, Explicit Casting (`static_cast`)       |
 | **ex01** | `reinterpret_cast`, Pointer Serialization, `uintptr_t`, Memory Addresses   |
 | **ex02** | Runtime Type Information (RTTI), `dynamic_cast`, Upcasting, Downcasting    |
+
+----
+
+## Concepts
+## Cast Operator
+| Cast Operator          | Purpose                                                        | Example                                             | Notes                                                                                                                                                                                   |
+| ---------------------- | -------------------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`static_cast`**      | Performs safe conversions between related or compatible types. | `int n = static_cast<int>(3.14);`                   | Used for scalar conversions (`int`, `float`, `char`, `double`) and upcasting in inheritance.                                                                                            |
+| **`dynamic_cast`**     | Checks an object's actual type at runtime.                     | `A* a = dynamic_cast<A*>(basePtr);`                 | Only works with **polymorphic classes** (classes with at least one virtual function). Returns `nullptr` for failed pointer casts and throws `std::bad_cast` for failed reference casts. |
+| **`const_cast`**       | Adds or removes `const` or `volatile` qualifiers.              | `int* p = const_cast<int*>(constPtr);`              | Only changes const/volatile qualifiers. It does **not** change the object's type.                                                                                                       |
+| **`reinterpret_cast`** | Reinterprets the same bits as a different type.                | `uintptr_t raw = reinterpret_cast<uintptr_t>(ptr);` | Used for low-level memory operations such as converting between pointers and integer types. No runtime safety checks are performed.                                                     |
+
+### ex02
+| Concept                             | Description                                                                                                           |
+| ----------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| **Runtime Type Information (RTTI)** | Allows C++ to determine an object's actual type during program execution.                                             |
+| **`dynamic_cast`**                  | Safely converts pointers or references within an inheritance hierarchy by checking the object's real type at runtime. |
+| **Upcasting**                       | Converting a derived class pointer/reference to a base class pointer/reference. Usually implicit and always safe.     |
+| **Downcasting**                     | Converting a base class pointer/reference back to a derived class. Requires `dynamic_cast` for runtime safety.        |
+
+Visual
+```cpp
+        Base
+       / | \
+      A  B  C
+
+Upcasting:
+A*  ─────────► Base*
+
+Downcasting:
+Base* ───────► A*
+        (dynamic_cast)
+```

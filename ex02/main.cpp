@@ -6,7 +6,7 @@
 /*   By: nchairun <nchairun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/29 12:26:56 by nchairun          #+#    #+#             */
-/*   Updated: 2026/06/29 13:22:47 by nchairun         ###   ########.fr       */
+/*   Updated: 2026/07/12 02:51:49 by nchairun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,14 @@ int main ()
     // identify(nullptr); // check nullptr
 
 	delete obj; // delete dynamically allocated object
-	return 0;
+	return (0);
 }
+
+// int main(void)
+// {
+//     Base* obj = new A;
+
+//     delete obj;
+
+//     return (0);
+// }

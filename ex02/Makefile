@@ -6,26 +6,25 @@
 #    By: nchairun <nchairun@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/25 19:01:18 by nchairun          #+#    #+#              #
-#    Updated: 2026/06/29 12:45:09 by nchairun         ###   ########.fr        #
+#    Updated: 2026/07/12 03:00:41 by nchairun         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # **************************************************************************** #
 #                                 COMPILER                                     #
 # **************************************************************************** #
+NAME    = identify
 
 CC      = c++
 CFLAGS  = -Wall -Wextra -Werror -std=c++98
-
-NAME    = identify
 
 # **************************************************************************** #
 #                               FILE STRUCTURE                                 #
 # **************************************************************************** #
 
 SRC_DIR = src/
-INC_DIR = include/
 OBJ_DIR = obj/
+INC_DIR = include/
 
 SRCS 	= 	main.cpp \
 			$(SRC_DIR)Base.cpp \
@@ -33,31 +32,27 @@ SRCS 	= 	main.cpp \
 			$(SRC_DIR)B.cpp \
 			$(SRC_DIR)C.cpp
 
-OBJS = $(addprefix $(OBJ_DIR)/,$(SRCS:.cpp=.o))
+OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
 
 # **************************************************************************** #
 #                                   RULES                                      #
 # **************************************************************************** #
-
 .SILENT:
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -I$(INC_DIR) $(OBJS) -o $(NAME)
-
-$(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)
-	mkdir -p $(OBJ_DIR)/$(SRC_DIR)
-
-$(OBJ_DIR)/%.o: %.cpp | $(OBJ_DIR)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	
+$(OBJ_DIR)/%.o: %.cpp
+	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -I$(INC_DIR) -c $< -o $@
 
 # **************************************************************************** #
 #                                 CLEANING                                     #
 # **************************************************************************** #
-
 clean:
+	rm -rf $(OBJ_DIR)
 	rm -rf $(OBJ_DIR)
 
 fclean: clean

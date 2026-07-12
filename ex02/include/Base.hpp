@@ -6,7 +6,7 @@
 /*   By: nchairun <nchairun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 14:07:46 by nchairun          #+#    #+#             */
-/*   Updated: 2026/07/12 02:24:37 by nchairun         ###   ########.fr       */
+/*   Updated: 2026/07/12 02:56:59 by nchairun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@
 class Base
 {
         public:
+        	// Base();
+		// Base(const Base& other);
+		// Base& operator=(const Base& other);
 		virtual ~Base();
 };
 

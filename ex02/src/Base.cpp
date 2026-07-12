@@ -6,7 +6,7 @@
 /*   By: nchairun <nchairun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/29 12:29:26 by nchairun          #+#    #+#             */
-/*   Updated: 2026/06/29 13:22:53 by nchairun         ###   ########.fr       */
+/*   Updated: 2026/07/12 02:57:28 by nchairun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,29 @@
 #include "../include/C.hpp"
 
 /* ************************************************************************** */
-/*  VIRTUAL DESTRUCTOR                                                        */
+/*  ORTHODOX CANONICAL FORM                                                   */
 /* ************************************************************************** */
+// Base::Base()
+// {
+//     std::cout << " [Base] Default constructor called" << std::endl;
+// }
+
+// Base::Base(const Base& other)
+// {
+//     (void)other;
+//     std::cout << " [Base] Copy constructor called" << std::endl;
+// }
+
+// Base& Base::operator=(const Base& other)
+// {
+//     (void)other;
+//     std::cout << " [Base] Copy assignment operator called" << std::endl;
+//     return (*this);
+// }
 
 Base::~Base()
 {
+    // std::cout << " [Base] Destructor called" << std::endl;
 }
 
 /* ************************************************************************** */
@@ -47,6 +65,10 @@ Base* generate(void)
 	int	type;
 
 	type = rand() % 3;
+	type = 0;
+
+	std::cout << " [Debug] Random value: " << type << std::endl;
+	
 	if (type == 0)
 		return (new A);
 	if (type == 1)
