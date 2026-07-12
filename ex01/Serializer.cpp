@@ -6,7 +6,7 @@
 /*   By: nchairun <nchairun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 13:51:26 by nchairun          #+#    #+#             */
-/*   Updated: 2026/06/28 14:19:47 by nchairun         ###   ########.fr       */
+/*   Updated: 2026/07/12 02:26:04 by nchairun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,31 +16,27 @@
 /*  ORTHODOX CANONICAL FORM                                                   */
 /* ************************************************************************** */
 
-// Private default constructor (class cannot be instantiated)
 Serializer::Serializer()
 {
 }
 
-// Copy constructor (unused because all functions are static)
 Serializer::Serializer(const Serializer& other)
 {
 	(void)other;
 }
 
-// Copy assignment operator (unused because all functions are static)
 Serializer& Serializer::operator=(const Serializer& other)
 {
 	(void)other;
 	return (*this);
 }
 
-// Private destructor (class cannot be instantiated)
 Serializer::~Serializer()
 {
 }
 
 /* ************************************************************************** */
-/*  SERIALIZE                                                                 */
+/*  SERIALIZE, DESERIALIZE                                                    */
 /* ************************************************************************** */
 
 // Convert a Data pointer into an integer (memory address)

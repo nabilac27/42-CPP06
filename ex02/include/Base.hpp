@@ -6,7 +6,7 @@
 /*   By: nchairun <nchairun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 14:07:46 by nchairun          #+#    #+#             */
-/*   Updated: 2026/06/29 13:23:24 by nchairun         ###   ########.fr       */
+/*   Updated: 2026/07/12 02:24:37 by nchairun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 # include <exception>
 class Base
 {
-	public:
+        public:
 		virtual ~Base();
 };
 

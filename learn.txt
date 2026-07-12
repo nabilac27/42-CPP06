@@ -94,12 +94,36 @@ std::vector → float
 
 Those require other techniques.
 
+---
+	
+	OOP concept learned
+	Data*
+	│
+	reinterpret_cast
+	▼
+	uintptr_t
+	│
+	reinterpret_cast
+	▼
+	Data*
 
+	No object is copied.
 
+	No memory is allocated.
 
+	Only the pointer value (address) changes representation.
 
+	Why reinterpret_cast?
+		Because I need to convert between two unrelated types: Data* and uintptr_t. reinterpret_cast reinterprets the bits without changing them.
 
+	What is uintptr_t?
+		An unsigned integer type guaranteed to be large enough to store a pointer value.
 
+	Did you serialize the object?
+		No. I only converted the pointer (memory address) into an integer and back. The object itself never moved or changed.
+
+	Why is Serializer non-instantiable?
+		Because it only provides utility functions. It has no state, so all methods are static and the constructors are private.
 
 
 

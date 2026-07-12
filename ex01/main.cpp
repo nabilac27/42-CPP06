@@ -6,7 +6,7 @@
 /*   By: nchairun <nchairun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 13:59:38 by nchairun          #+#    #+#             */
-/*   Updated: 2026/06/28 14:23:19 by nchairun         ###   ########.fr       */
+/*   Updated: 2026/07/12 02:18:18 by nchairun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,24 @@ int	main(void)
 	std::cout << "Restored pointer : " << restored 		  	<< std::endl;
 	std::cout << "Value            : " << restored->value 	<< std::endl;
 
+	// -------------------
+	
+	// Data data;
+	// Data* original = &data;
+
+	// original->value = 42;
+
+	// uintptr_t raw = Serializer::serialize(original);
+	// Data* restored = Serializer::deserialize(raw);
+
+	// std::cout << "Original pointer : " << original << std::endl;
+	// std::cout << "Serialized value : " << raw << std::endl;
+	// std::cout << "Restored pointer : " << restored << std::endl;
+	// std::cout << "Value            : " << restored->value << std::endl;
+
+	// if (original == restored)
+    // std::cout << "Pointers are equal ✔" << std::endl;
+	
 	return (0);
 }
 
@@ -54,23 +72,4 @@ int	main(void)
 	Same address.
 
 	Different type.
-	
-	---
-	
-	OOP concept learned
-	Data*
-	│
-	reinterpret_cast
-	▼
-	uintptr_t
-	│
-	reinterpret_cast
-	▼
-	Data*
-
-	No object is copied.
-
-	No memory is allocated.
-
-	Only the pointer value (address) changes representation.
 */

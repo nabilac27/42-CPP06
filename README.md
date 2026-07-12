@@ -1,8 +1,16 @@
-# CPP Module 06
+<p align="center">
+  <img src="https://cdn-icons-png.flaticon.com/512/6132/6132222.png" width="60" alt="C++ Logo">
+</p>
 
-## Overview
+<h1 align="center">CPP Module 06</h1>
 
-CPP Module 06 introduces the **C++ casts** and **Runtime Type Information (RTTI)**.
+<h3 align="center">
+    C++ Casts • Scalar Conversion • Serialization • RTTI
+</h3>
+
+
+CPP Module 06 introduces the four C++ cast operators, with a focus on
+**`static_cast`**, **`reinterpret_cast`**, and **`dynamic_cast`**. 
 
 
 Each exercise demonstrates a different casting mechanism:
@@ -115,30 +123,29 @@ Since the class stores no state, every function is static and objects of the cla
     </summary>
 
 ---
-## Serialization Diagram
+
+- This exercise introduces **`reinterpret_cast`**, a C++ cast used to convert
+between unrelated pointer and integer types.
+
+- The goal is **not** to serialize an object into bytes or a file.
+
+- Instead, the exercise simply converts a pointer into an integer (`uintptr_t`) and converts it back into the original pointer.
+
+
+## Class Structure
 
 ```bash
-            Data object
-         +---------------+
-         | id            |
-         | name          |
-         +---------------+
-                ▲
-                │
-            Data*
-                │
-      serialize(ptr)
-                │
-                ▼
-           uintptr_t
-                │
-      deserialize(raw)
-                │
-                ▼
-            Data*
-                │
-                ▼
-      Same original object
+                 Serializer
+             +------------------+
+             | - constructor()  |
+             | - destructor()   |
+             +------------------+
+             | + serialize()    |
+             | + deserialize()  |
+             +------------------+
+                     ▲
+                     │
+                  static
 ```
 
 ## Flow
@@ -167,15 +174,38 @@ Since the class stores no state, every function is static and objects of the cla
 
 ## Responsibility
 
-`Serializer` demonstrates that pointers can be converted into an integer representation and later reconstructed without changing the memory address.
+### `serialize(Data* ptr)`
 
-No object is copied.
+- Receives a pointer.
+- Converts it into a `uintptr_t`.
+- Returns the integer.
 
-No data is serialized into bytes.
+```cpp
+uintptr_t Serializer::serialize(Data* ptr)
+{
+    return reinterpret_cast<uintptr_t>(ptr);
+}
+```
 
-Only the pointer value is converted using `reinterpret_cast`.
+---
 
-The goal is to prove that:
+### `deserialize(uintptr_t raw)`
+
+- Receives an integer.
+- Converts it back into a pointer.
+- Returns the original pointer.
+
+```cpp
+Data* Serializer::deserialize(uintptr_t raw)
+{
+    return reinterpret_cast<Data*>(raw);
+}
+```
+
+
+---
+
+### The goal is to prove that:
 
 ```cpp
     deserialize(serialize(ptr)) == ptr
